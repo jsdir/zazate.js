@@ -111,7 +111,7 @@ function major_seventh(note) {
 function get_interval(note, interval, key) {
         if (key === null) {
 		key = 'C';
-	}
+        }
         var intervals = [0, 2, 4, 5, 7, 9, 11].map(function(x) {
 		return (notes.note_to_int(key) + x) % 12;
 	});
