@@ -1,21 +1,21 @@
 {
-	"name": "zazate.js",
-	"version": "0.0.0",
-	"description": "Music theory and notation library for javascript and node.js",
-	"author": {
-		"name": "Wael Amine Boutglay",
-		"email": "btwael@gmail.com"
-	},
-	"main": "core/init.js",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/btwael/zazate.js.git"
-	},
-	"dependencies": {
-		"underscore": "1.5.2"
-	},
-	"devDependencies": {
-		"mocha": "latest",
-		"should": "latest"
-	}
+  "name": "zazate.js",
+  "version": "0.0.0",
+  "description": "Music theory and notation library for javascript and node.js",
+  "author": {
+    "name": "Wael Amine Boutglay",
+    "email": "btwael@gmail.com"
+  },
+  "main": "core/init.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/btwael/zazate.js.git"
+  },
+  "dependencies": {
+    "lodash": "^3.8.0"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest"
+  }
 }
