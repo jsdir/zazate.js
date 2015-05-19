@@ -83,7 +83,7 @@ var chord_shorthand_meaning = {
 // diatonic
 
 function triad(note, key) {
-	return [note, intervals.third(note, key), intervals.fifth(note, key)]
+        return [note, intervals.third(note, key), intervals.fifth(note, key)];
 }
 
 function triads(key) {
@@ -130,11 +130,11 @@ function seventh(note, key) {
 
 
 function sevenths(key) {
-	if(_sevenths_cache.hasOwnProperty(key)) {
+        if (_sevenths_cache.hasOwnProperty(key)) {
 		return _sevenths_cache[key];
 	}
 
-	res = diatonic.get_notes(key).map(function (x) {
+        var res = diatonic.get_notes(key).map(function (x) {
 		return seventh(x, key);
 	});
 	_sevenths_cache[key] = res;
@@ -302,7 +302,7 @@ function dominant_thirteenth(note) {
 // absolute
 
 function suspended_triad(note) {
-	return suspended_fourth_triad(note)
+        return suspended_fourth_triad(note);
 }
 
 
@@ -312,7 +312,7 @@ function suspended_second_triad(note) {
 
 
 function suspended_fourth_triad(note) {
-	return [note, intervals.perfect_fourth(note), intervals.perfect_fifth(note)]
+        return [note, intervals.perfect_fourth(note), intervals.perfect_fifth(note)];
 }
 
 function suspended_seventh(note) {
@@ -348,8 +348,8 @@ function augmented_minor_seventh(note) {
 ===================================================================*/
 
 function dominant_flat_five(note) {
-	var res = dominant_seventh(note)
-	res[2] = notes.diminish(res[2])
+        var res = dominant_seventh(note);
+        res[2] = notes.diminish(res[2]);
 	return res;
 }
 
@@ -528,15 +528,15 @@ function invert(chord) {
 }
 
 function first_inversion(chord) {
-	return invert(chord)
+        return invert(chord);
 }
 
 function second_inversion(chord) {
-	return invert(invert(chord))
+        return invert(invert(chord));
 }
 
 function third_inversion(chord) {
-	return invert(invert(invert(chord)))
+        return invert(invert(invert(chord)));
 }
 
 /*===================================================================
@@ -544,11 +544,11 @@ function third_inversion(chord) {
 ===================================================================*/
 
 function from_shorthand(shorthand_string, slash) {
-	if(typeof shorthand_string == 'array'){
+        if (typeof shorthand_string == 'array'){
 		var res = [];
-		for(var i = 0; i < shorthand_string.length; i++) {
+                for (var i = 0; i < shorthand_string.length; i++) {
 			res.push(from_shorthand(shorthand_string[i]));
-		};
+                }
 		return res;
 	}
 	if(__indexOf.call(["NC", "N.C."], shorthand_string) >= 0) {
@@ -566,10 +566,10 @@ function from_shorthand(shorthand_string, slash) {
 		throw "NoteFormatError: Unrecognised note '" + shorthand_string[0] + "' in chord '" + shorthand_string + "'";
 	}
 
-	name = shorthand_string[0];
+        var name = shorthand_string[0];
 
-	for (_i = 0, _len = shorthand_string.slice(1, shorthand_string.length).length; _i < _len; _i++) {
-		n = shorthand_string.slice(1, shorthand_string.length)[_i];
+        for (var _i = 0, _len = shorthand_string.slice(1, shorthand_string.length).length; _i < _len; _i++) {
+                var n = shorthand_string.slice(1, shorthand_string.length)[_i];
 		if (n === '#') {
 			name += n;
 		} else if (n === 'b') {
@@ -579,9 +579,9 @@ function from_shorthand(shorthand_string, slash) {
 		}
 	}
 
-	slash_index = -1;
-	s = 0;
-	rest_of_string = shorthand_string.slice(name.length, shorthand_string.length);
+        var slash_index = -1;
+        var s = 0;
+        var rest_of_string = shorthand_string.slice(name.length, shorthand_string.length);
 	for (_i = 0, _len = rest_of_string.length; _i < _len; _i++) {
 		n = rest_of_string[_i];
 		if (n === '/') {
@@ -594,12 +594,12 @@ function from_shorthand(shorthand_string, slash) {
 
 	if(slash_index != -1 && !(__indexOf.call(["m/M7", "6/9", "6/7"], rest_of_string) >= 0)) {
 		res = shorthand_string.slice(0, name.length + slash_index);
-		return from_shorthand(shorthand_string.slice(0, name.length + slash_index), shorthand_string.slice(name.length + slash_index + 1, shorthand_string.length))
+                return from_shorthand(shorthand_string.slice(0, name.length + slash_index), shorthand_string.slice(name.length + slash_index + 1, shorthand_string.length));
 	}
 
-	shorthand_start = name.length;
+        var shorthand_start = name.length;
 
-	short_chord = shorthand_string.slice(shorthand_start, shorthand_string.length);
+        var short_chord = shorthand_string.slice(shorthand_start, shorthand_string.length);
 	if(chord_shorthand.hasOwnProperty(short_chord)) {
 		res = chord_shorthand[short_chord](name);
 		if(slash != null) {
@@ -610,7 +610,7 @@ function from_shorthand(shorthand_string, slash) {
 					throw "NoteFormatError: Unrecognised note '" + slash + "' in slash chord '" + shorthand_string + "'";
 				}
 			} else if(typeof slash == 'object') {
-				r = slash;
+                                var r = slash;
 				for (_i = 0, _len = res.length; _i < _len; _i++) {
 					n = res[_i];
 					if (n !== r[r.length-1]) {
@@ -631,30 +631,31 @@ function from_shorthand(shorthand_string, slash) {
 ===================================================================*/
 
 function determine(chord, shorthand, no_inversions, no_polychords) {
-	if(shorthand == null) {
+        if (shorthand === null) {
 		shorthand = false;
 	}
-	if(no_inversions == null) {
+        if (no_inversions === null) {
 		no_inversions = false;
 	}
-	if(no_polychords == null) {
+        if (no_polychords === null) {
 		no_polychords = false;
 	}
-	if(chord == []) {
+
+        if (chord == []) {
 		return [];
-	} else if(chord.length == 1) {
+        } else if (chord.length == 1) {
 		return chord;
-	} else if(chord.length == 2) {
+        } else if (chord.length == 2) {
 		return [intervals.determine(chord[0], chord[1])];
-	} else if(chord.length == 3) {
+        } else if (chord.length == 3) {
 		return determine_triad(chord, shorthand, no_inversions, no_polychords);
-	} else if(chord.length == 4) {
+        } else if (chord.length == 4) {
 		return determine_seventh(chord, shorthand, no_inversions, no_polychords);
-	} else if(chord.length == 5) {
+        } else if (chord.length == 5) {
 		return determine_extended_chord5(chord, shorthand, no_inversions, no_polychords);
-	} else if(chord.length == 6) {
+        } else if (chord.length == 6) {
 		return determine_extended_chord6(chord, shorthand, no_inversions, no_polychords);
-	} else if(chord.length == 7) {
+        } else if (chord.length == 7) {
 		return determine_extended_chord7(chord, shorthand, no_inversions, no_polychords);
 	} else {
 		return determine_polychords(chord, shorthand);
@@ -663,13 +664,15 @@ function determine(chord, shorthand, no_inversions, no_polychords) {
 
 
 function determine_triad(triad, shorthand, no_inversions, placeholder) {
-	if(shorthand == null) {
+        if (shorthand === null) {
 		shorthand = false;
-	}
-	if(no_inversions == null) {
+        }
+
+        if (no_inversions === null) {
 		no_inversions = false;
 	}
-	if(triad.length != 3) {
+
+        if (triad.length != 3) {
 		return false;
 	}
 
@@ -682,7 +685,7 @@ function determine_triad(triad, shorthand, no_inversions, placeholder) {
 			result.push([short, tries, triad[0]]);
 		}
 
-		intval = intval1 + intval2;
+                var intval = intval1 + intval2;
 		if(intval == "25") {
 			add_result("sus2");
 		} else if(intval == "3b7") {
@@ -720,10 +723,10 @@ function determine_triad(triad, shorthand, no_inversions, placeholder) {
 				m = triad.slice(0, triad.length-1);
 			for (var i = 0; i < m.length; i++) {
 				arr.push(m[i]);
-			};
+                        }
 			return inversion_exhauster(arr, shorthand, tries + 1, result);
 		} else {
-			res = [];
+                        var res = [];
 			for (var i = 0; i < result.length; i++) {
 				r = result[i];
 				if(shorthand){
@@ -731,7 +734,7 @@ function determine_triad(triad, shorthand, no_inversions, placeholder) {
 				} else {
 					res.push(r[2] + chord_shorthand_meaning[r[0]] + int_desc(r[1]));
 				}
-			};
+                        }
 			return res;
 		}
 	}
@@ -740,17 +743,17 @@ function determine_triad(triad, shorthand, no_inversions, placeholder) {
 }
 
 function determine_seventh(seventh, shorthand, no_inversion, no_polychords) {
-	if(shorthand == null) {
+        if (shorthand === null) {
 		shorthand = false;
 	}
-	if(no_inversion == null) {
+        if (no_inversion === null) {
 		no_inversion = false;
 	}
-	if(no_polychords == null) {
+        if (no_polychords === null) {
 		no_polychords = false;
 	}
-	if(seventh.length != 4) {
-		return false
+        if (seventh.length != 4) {
+                return false;
 	}
 
 	function inversion_exhauster(seventh, shorthand, tries, resulta, polychordsa) {
@@ -760,7 +763,7 @@ function determine_seventh(seventh, shorthand, no_inversion, no_polychords) {
 			intval3 = intervals.determine(seventh[0], seventh[3]);
 
 		function add_result(short, poly) {
-			if(poly == null) {
+                        if(poly === null) {
 				poly = false;
 			}
 			result.push([short, tries, seventh[0], poly]);
@@ -770,10 +773,10 @@ function determine_seventh(seventh, shorthand, no_inversion, no_polychords) {
 			var p = determine_polychords(seventh, shorthand);
 			for (var i = 0; i < p.length; i++) {
 				polychords.push(p[i]);
-			};
+                        }
 		}
 
-		for(var i = 0; i < triads.length; i++) {
+                for (var i = 0; i < triads.length; i++) {
 			var triad = triads[i];
 			triad = triad.slice(seventh[0].length, triad.length);
 			if(triad == "m") {
@@ -848,13 +851,13 @@ function determine_seventh(seventh, shorthand, no_inversion, no_polychords) {
 }
 
 function determine_extended_chord5(chord, shorthand, no_inversions, no_polychords) {
-	if(shorthand == null) {
+        if(shorthand === null) {
 		shorthand = false;
 	}
-	if(no_inversions == null) {
+        if(no_inversions === null) {
 		no_inversions = false;
 	}
-	if(no_polychords == null) {
+        if(no_polychords === null) {
 		no_polychords = false;
 	}
 	if(chord.length != 5) {
@@ -877,13 +880,13 @@ function determine_extended_chord5(chord, shorthand, no_inversions, no_polychord
 			var p = determine_polychords(chord, shorthand);
 			for (var i = 0; i < p.length; i++) {
 				polychords.push(p[i]);
-			};
+                        }
 		}
 
 		var intval4 = intervals.determine(chord[0], chord[4]);
 		for(var i = 0; i < sevenths.length; i++) {
 			var seventh = sevenths[i];
-			seventh = seventh.slice(chord[0].length, seventh.length)
+                        seventh = seventh.slice(chord[0].length, seventh.length);
 			if(seventh == "M7") {
 				if(intval4 == 'major second') {
 					add_result("M9");
@@ -922,32 +925,32 @@ function determine_extended_chord5(chord, shorthand, no_inversions, no_polychord
 			arg1.unshift(chord[chord.length - 1]);
 			return inversion_exhauster(arg1, shorthand, tries + 1, result, polychords);
 		} else {
-			var res = []
+                        var res = [];
 			for(var i = 0; i < result.length; i++) {
 				var r = result[i];
 				if(shorthand) {
-					res.push(r[2] + r[0])
+                                        res.push(r[2] + r[0]);
 				} else {
-					res.push(r[2] + chord_shorthand_meaning[r[0]] + int_desc(r[1]))
+                                        res.push(r[2] + chord_shorthand_meaning[r[0]] + int_desc(r[1]));
 				}
 			}
 			for(var i = 0; i < polychords.length; i++) {
 				res.push(polychords[i]);
-			};
+                        }
 			return res;
 		}
 	}
-	return inversion_exhauster(chord, shorthand, 1, [], [])
+        return inversion_exhauster(chord, shorthand, 1, [], []);
 }
 
 function determine_extended_chord6(chord, shorthand, no_inversions, no_polychords) {
-	if(shorthand == null) {
+        if(shorthand === null) {
 		shorthand = false;
 	}
-	if(no_inversions == null) {
+        if(no_inversions === null) {
 		no_inversions = false;
 	}
-	if(no_polychords == null) {
+        if(no_polychords === null) {
 		no_polychords = false;
 	}
 
@@ -962,7 +965,7 @@ function determine_extended_chord6(chord, shorthand, no_inversions, no_polychord
 			var p = determine_polychords(chord, shorthand);
 			for (var i = 0; i < p.length; i++) {
 				polychords.push(p[i]);
-			};
+                        }
 		}
 
 		function add_result(short) {
@@ -1001,20 +1004,20 @@ function determine_extended_chord6(chord, shorthand, no_inversions, no_polychord
 		if(tries != 6 && !no_inversions) {
 			var arg1 = chord.slice(0, chord.length - 1);
 			arg1.unshift(chord[chord.length - 1]);
-			return inversion_exhauster(arg1, shorthand, tries + 1, result, polychords)
+                        return inversion_exhauster(arg1, shorthand, tries + 1, result, polychords);
 		} else {
-			var res = []
+                        var res = [];
 			for(var i = 0; i < result.length; i++) {
 				var r = result[i];
 				if(shorthand) {
-					res.push(r[2] + r[0])
+                                        res.push(r[2] + r[0]);
 				} else {
-					res.push(r[2] + chord_shorthand_meaning[r[0]] + int_desc(r[1]))
+                                        res.push(r[2] + chord_shorthand_meaning[r[0]] + int_desc(r[1]));
 				}
 			}
 			for(var i = 0; i < polychords.length; i++) {
 				res.push(polychords[i]);
-			};
+                        }
 			return res;
 		}
 	}
@@ -1022,13 +1025,13 @@ function determine_extended_chord6(chord, shorthand, no_inversions, no_polychord
 }
 
 function determine_extended_chord7(chord, shorthand, no_inversions, no_polychords) {
-	if(shorthand == null) {
+        if(shorthand === null) {
 		shorthand = false;
 	}
-	if(no_inversions == null) {
+        if(no_inversions === null) {
 		no_inversions = false;
 	}
-	if(no_polychords == null) {
+        if(no_polychords === null) {
 		no_polychords = false;
 	}
 
@@ -1043,7 +1046,7 @@ function determine_extended_chord7(chord, shorthand, no_inversions, no_polychord
 			var p = determine_polychords(chord, shorthand);
 			for (var i = 0; i < p.length; i++) {
 				polychords.push(p[i]);
-			};
+                        }
 		}
 
 		function add_result(short) {
@@ -1087,7 +1090,7 @@ function determine_extended_chord7(chord, shorthand, no_inversions, no_polychord
 			}
 			for(var i = 0; i < polychords.length; i++) {
 				res.push(polychords[i]);
-			};
+                        }
 			return res;
 		}
 	}
@@ -1107,7 +1110,7 @@ function int_desc(tries) {
 }
 
 function determine_polychords(chord, shorthand) {
-	if(shorthand == null) {
+        if(shorthand === null) {
 		shorthand = false;
 	}
 	var polychords = [],
@@ -1118,9 +1121,9 @@ function determine_polychords(chord, shorthand) {
 	} else if(chord.length > 14) {
 		return [];
 	} else if(chord.length - 3 <= 5) {
-		function_nr = _.range(0, chord.length - 3);
+                var function_nr = _.range(0, chord.length - 3);
 	} else {
-		function_nr = _.range(0, 5);
+                var function_nr = _.range(0, 5);
 	}
 
 	for(var i = 0; i < function_nr.length; i++) {
@@ -1143,7 +1146,7 @@ function determine_polychords(chord, shorthand) {
 		for(var i = 0; i < polychords.length; i++) {
 			var p = polychords[i];
 			p = p + " polychord";
-		};
+                }
 	}
 
 	return polychords;
@@ -1220,7 +1223,8 @@ var chord_shorthand = {
 		"5" : function(x) {
 			return [x, intervals.perfect_fifth(x)];
 		}
-}
+};
+
 //export
 exports._triads_cache = _triads_cache;
 exports._sevenths_cache = _sevenths_cache;
@@ -1245,7 +1249,7 @@ exports.sixth_ninth = sixth_ninth;
 exports.minor_ninth = minor_ninth;
 exports.major_ninth = major_ninth;
 exports.dominant_ninth = dominant_ninth;
-exports.dominant_flat_ninth = dominant_flat_ninth
+exports.dominant_flat_ninth = dominant_flat_ninth;
 exports.dominant_sharp_ninth = dominant_sharp_ninth;
 exports.eleventh = eleventh;
 exports.minor_eleventh = minor_eleventh;
