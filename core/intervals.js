@@ -3,7 +3,7 @@ var notes = require('./notes.js'),
 	_ = require('lodash');
 
 function unison(note) {
-	return note
+        return note;
 }
 
 function second(note, key) {
@@ -43,30 +43,30 @@ function augmented_unison(note) {
 }
 
 function minor_second(note) {
-	sec = second(note[0], 'C');
+        var sec = second(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, sec, 1);
 }
 
 function major_second(note) {
-	sec = second(note[0], 'C');
+        var sec = second(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, sec, 2);
 }
 
 function minor_third(note) {
-	trd = third(note[0], 'C');
+        var trd = third(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, trd, 3);
 }
 function major_third(note) {
-	trd = third(note[0], 'C');
+        var trd = third(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, trd, 4);
 }
 function minor_fourth(note) {
-	frt = fourth(note[0], 'C');
+        var frt = fourth(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, frt, 4);
 }
 
 function major_fourth(note) {
-	frt = fourth(note[0], 'C');
+        var frt = fourth(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, frt, 5);
 }
 
@@ -75,12 +75,12 @@ function perfect_fourth(note) {
 }
 
 function minor_fifth(note) {
-	fif = fifth(note[0], 'C');
+        var fif = fifth(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, fif, 6);
 }
 
 function major_fifth(note) {
-	fif = fifth(note[0], 'C');
+        var fif = fifth(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, fif, 7);
 }
 
@@ -89,33 +89,33 @@ function perfect_fifth(note) {
 }
 
 function minor_sixth(note) {
-	sth = sixth(note[0], 'C');
+        var sth = sixth(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, sth, 8);
 }
 
 function major_sixth(note) {
-	sth = sixth(note[0], 'C');
+        var sth = sixth(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, sth, 9);
 }
 
 function minor_seventh(note) {
-	sth = seventh(note[0], 'C');
+        var sth = seventh(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, sth, 10);
 }
 
 function major_seventh(note) {
-	sth = seventh(note[0], 'C');
+        var sth = seventh(note[0], 'C');
 	return augment_or_diminish_until_the_interval_is_right(note, sth, 11);
 }
 
 function get_interval(note, interval, key) {
-	 if (key == null) {
+        if (key === null) {
 		key = 'C';
 	}
-	intervals = [0, 2, 4, 5, 7, 9, 11].map(function(x) {
+        var intervals = [0, 2, 4, 5, 7, 9, 11].map(function(x) {
 		return (notes.note_to_int(key) + x) % 12;
 	});
-	key_notes = diatonic.get_notes(key);
+        var key_notes = diatonic.get_notes(key);
 
 	var result, x, _i, _len;
 	for (_i = 0, _len = key_notes.length; _i < _len; _i++) {
@@ -135,7 +135,7 @@ function get_interval(note, interval, key) {
 }
 
 function measure(note1, note2) {
-	res = notes.note_to_int(note2) - notes.note_to_int(note1);
+        var res = notes.note_to_int(note2) - notes.note_to_int(note1);
 	if(res < 0) {
 		return 12 - (res * (-1));
 	} else {
@@ -144,7 +144,7 @@ function measure(note1, note2) {
 }
 
 function augment_or_diminish_until_the_interval_is_right(note1, note2, interval) {
-	var cur, note2;
+        var cur;
 
 	cur = measure(note1, note2);
 
@@ -179,7 +179,7 @@ function augment_or_diminish_until_the_interval_is_right(note1, note2, interval)
 		val = 12 + val;
 	}
 
-	result = note2[0]
+        var result = note2[0];
 
 	while (val > 0) {
 		result = notes.augment(result);
@@ -195,12 +195,11 @@ function augment_or_diminish_until_the_interval_is_right(note1, note2, interval)
 }
 
 function invert(interval) {
-	res = interval.reverse();
-	return res;
+        return interval.reverse();
 }
 
 function determine(note1, note2, shorthand) {
-	if (shorthand == null) {
+        if (shorthand === null) {
 		shorthand = false;
 	}
 	var get_val, x, y;
@@ -244,15 +243,15 @@ function determine(note1, note2, shorthand) {
 		}
 	}
 
-	n1 = notes.fifths.indexOf(note1[0]);
-	n2 = notes.fifths.indexOf(note2[0]);
+        var n1 = notes.fifths.indexOf(note1[0]);
+        var n2 = notes.fifths.indexOf(note2[0]);
 
-	number_of_fifth_steps = n2 - n1;
+        var number_of_fifth_steps = n2 - n1;
 
 	if(n2 < n1) {
 		number_of_fifth_steps = notes.fifths.length - n1 + n2;
 	}
-	fifth_steps = [
+        var fifth_steps = [
 		["unison", "1", 0],
 		["fifth", "5", 7],
 		["second", "2", 2],
@@ -262,10 +261,10 @@ function determine(note1, note2, shorthand) {
 		["fourth", "4", 5]
 	];
 
-	half_notes = measure(note1, note2);
-	current = fifth_steps[number_of_fifth_steps];
+        var half_notes = measure(note1, note2);
+        var current = fifth_steps[number_of_fifth_steps];
 
-	maj = current[2];
+        var maj = current[2];
 
 	if(maj == half_notes) {
 		if(current[0] == "fifth") {
@@ -302,7 +301,7 @@ function determine(note1, note2, shorthand) {
 }
 
 function from_shorthand(note, interval, up) {
-	if (up == null) {
+        if (up === null) {
 		up = true;
 	}
 
@@ -310,7 +309,7 @@ function from_shorthand(note, interval, up) {
 		return false;
 	}
 
-	shorthand_lookup = [
+        var shorthand_lookup = [
 		["1", major_unison, major_unison],
 		["2", major_second, minor_seventh],
 		["3", major_third, minor_sixth],
@@ -320,7 +319,7 @@ function from_shorthand(note, interval, up) {
 		["7", major_seventh, minor_second]
 	];
 
-	val = false;
+        var val = false;
 	var shorthand, _i, _len;
 	for (_i = 0, _len = shorthand_lookup.length; _i < _len; _i++) {
 		shorthand = shorthand_lookup[_i];
@@ -333,10 +332,11 @@ function from_shorthand(note, interval, up) {
 		}
 	}
 	
-	if(val == false) {
+        if (val === false) {
 		return false;
-	}
-	var x, _i, _len;
+        }
+
+        var x;
 
 	for (_i = 0, _len = interval.length; _i < _len; _i++) {
 		x = interval[_i];
@@ -359,17 +359,17 @@ function from_shorthand(note, interval, up) {
 }
 
 function is_consonant(note1, note2, include_fourths) {
-	if (include_fourths == null) {
+        if (include_fourths === null) {
 		include_fourths = true;
 	}
 	return is_perfect_consonant(note1, note2, include_fourths) || is_imperfect_consonant(note1, note2);
 }
 
 function is_perfect_consonant(note1, note2, include_fourths) {
-	if (include_fourths == null) {
+        if (include_fourths === null) {
 		include_fourths = true;
 	}
-	dhalf = measure(note1, note2);
+        var dhalf = measure(note1, note2);
 	return (dhalf === 0 || dhalf === 7) || (include_fourths && dhalf === 5);
 }
 
@@ -379,7 +379,7 @@ function is_imperfect_consonant(note1, note2) {
 }
 
 function is_dissonant(note1, note2, include_fourths) {
-	if(include_fourths == null) {
+        if(include_fourths === null) {
 		include_fourths = false;
 	}
     return !(is_consonant(note1, note2, !include_fourths));
