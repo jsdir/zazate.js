@@ -1,6 +1,6 @@
 var notes = require('./notes.js'),
 	diatonic = require('./diatonic.js');
-	_ = require('underscore');
+	_ = require('lodash');
 
 function unison(note) {
 	return note

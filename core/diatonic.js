@@ -1,9 +1,9 @@
 var notes = require('./notes.js'),
-	_ = require('underscore');
+	_ = require('lodash');
 
-basic_keys = ["Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#", "G#", "D#", "A#"];
+var basic_keys = ["Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#", "G#", "D#", "A#"];
 
-_key_cache = {};
+var _key_cache = {};
 
 function get_notes(key) {
 	var key_dict;
